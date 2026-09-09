@@ -31,6 +31,7 @@ body {
   min-height: 100vh;
   margin: 0;
   overflow-x: hidden;
+  isolation: isolate;
   color: var(--ink);
   background:
     radial-gradient(circle at 50% -15%, rgba(102, 83, 176, 0.16), transparent 38rem),
@@ -45,7 +46,7 @@ button {
 
 .ambient {
   position: fixed;
-  z-index: -1;
+  z-index: 0;
   width: 24rem;
   height: 24rem;
   border-radius: 50%;
@@ -66,7 +67,121 @@ button {
   background: var(--coral);
 }
 
+.space-scene {
+  position: fixed;
+  z-index: 0;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.star-field {
+  position: absolute;
+  inset: -18%;
+  opacity: 0.72;
+  background-repeat: repeat;
+  pointer-events: none;
+}
+
+.star-field-large {
+  background-image:
+    radial-gradient(circle at 12% 18%, rgba(255, 255, 255, 0.88) 0 1px, transparent 1.5px),
+    radial-gradient(circle at 74% 10%, rgba(183, 168, 255, 0.82) 0 1px, transparent 1.7px),
+    radial-gradient(circle at 42% 76%, rgba(255, 255, 255, 0.65) 0 1px, transparent 1.4px),
+    radial-gradient(circle at 91% 66%, rgba(255, 170, 151, 0.72) 0 1px, transparent 1.5px);
+  background-size: 23rem 21rem, 31rem 29rem, 27rem 25rem, 37rem 33rem;
+  animation: star-drift 72s linear infinite;
+}
+
+.star-field-small {
+  inset: -30%;
+  opacity: 0.48;
+  background-image:
+    radial-gradient(circle at 8% 32%, rgba(255, 255, 255, 0.9) 0 0.7px, transparent 1.2px),
+    radial-gradient(circle at 67% 44%, rgba(156, 125, 255, 0.82) 0 0.8px, transparent 1.2px),
+    radial-gradient(circle at 86% 84%, rgba(255, 255, 255, 0.7) 0 0.7px, transparent 1.1px);
+  background-size: 13rem 15rem, 17rem 19rem, 19rem 17rem;
+  animation: star-drift-reverse 110s linear infinite;
+}
+
+.star-glow {
+  position: absolute;
+  width: 18rem;
+  height: 18rem;
+  border-radius: 50%;
+  filter: blur(48px);
+  opacity: 0.08;
+}
+
+.star-glow-one {
+  top: 14%;
+  right: 12%;
+  background: var(--violet);
+}
+
+.star-glow-two {
+  bottom: 9%;
+  left: 10%;
+  background: var(--coral);
+}
+
+.shooting-star {
+  position: absolute;
+  width: 7rem;
+  height: 1px;
+  border-radius: 50%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.85), transparent);
+  opacity: 0;
+  transform: rotate(-28deg);
+}
+
+.shooting-star-one {
+  top: 16%;
+  left: 9%;
+  animation: shooting-star 11s 2s ease-in infinite;
+}
+
+.shooting-star-two {
+  top: 38%;
+  right: 18%;
+  width: 5rem;
+  animation: shooting-star 15s 7s ease-in infinite;
+}
+
+.space-ship {
+  position: absolute;
+  width: 8rem;
+  height: auto;
+  opacity: 0.42;
+  filter: drop-shadow(0 0 0.8rem rgba(156, 125, 255, 0.3));
+}
+
+.space-ship-one {
+  top: 14%;
+  left: -12rem;
+  animation: ship-flight-one 34s linear infinite;
+}
+
+.space-ship-two {
+  top: 57%;
+  right: -12rem;
+  opacity: 0.3;
+  filter: drop-shadow(0 0 0.8rem rgba(130, 226, 189, 0.3));
+  animation: ship-flight-two 43s 8s linear infinite;
+}
+
+.space-ship-three {
+  bottom: 10%;
+  left: -10rem;
+  width: 5rem;
+  opacity: 0.24;
+  filter: drop-shadow(0 0 0.7rem rgba(255, 144, 125, 0.32));
+  animation: ship-flight-three 51s 15s linear infinite;
+}
+
 .game-shell {
+  position: relative;
+  z-index: 1;
   width: min(100%, 60rem);
   min-height: 100vh;
   margin: 0 auto;
@@ -388,9 +503,52 @@ kbd {
   to { box-shadow: inset 0 1px rgba(255, 255, 255, 0.08), 0 0 1.5rem rgba(130, 226, 189, 0.16); }
 }
 
+@keyframes star-drift {
+  from { transform: translate3d(0, 0, 0) rotate(0deg); }
+  to { transform: translate3d(3%, 2%, 0) rotate(2deg); }
+}
+
+@keyframes star-drift-reverse {
+  from { transform: translate3d(0, 0, 0); }
+  to { transform: translate3d(-4%, 3%, 0); }
+}
+
+@keyframes shooting-star {
+  0%, 72% { opacity: 0; transform: translate3d(-2rem, -1rem, 0) rotate(-28deg); }
+  76% { opacity: 0.85; }
+  86%, 100% { opacity: 0; transform: translate3d(11rem, 7rem, 0) rotate(-28deg); }
+}
+
+@keyframes ship-flight-one {
+  0% { transform: translate3d(-12vw, 3vh, 0) rotate(6deg); }
+  45% { transform: translate3d(52vw, -5vh, 0) rotate(3deg); }
+  100% { transform: translate3d(125vw, 8vh, 0) rotate(8deg); }
+}
+
+@keyframes ship-flight-two {
+  0% { transform: translate3d(12vw, 0, 0) rotate(180deg); }
+  48% { transform: translate3d(-51vw, 7vh, 0) rotate(176deg); }
+  100% { transform: translate3d(-125vw, -3vh, 0) rotate(181deg); }
+}
+
+@keyframes ship-flight-three {
+  0% { transform: translate3d(-12vw, 0, 0) rotate(-3deg); }
+  50% { transform: translate3d(52vw, -5vh, 0) rotate(2deg); }
+  100% { transform: translate3d(125vw, 2vh, 0) rotate(-1deg); }
+}
+
 @media (max-width: 520px) {
   .game-shell {
     padding: 2.8rem 0.9rem 1.5rem;
+  }
+
+  .space-ship {
+    width: 5.5rem;
+    opacity: 0.24;
+  }
+
+  .space-ship-three {
+    width: 3.5rem;
   }
 
   .hero {
@@ -436,5 +594,11 @@ kbd {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
+  }
+
+  .star-field,
+  .shooting-star,
+  .space-ship {
+    animation: none !important;
   }
 }
