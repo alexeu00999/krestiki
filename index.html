@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#10121c" />
+    <meta
+      name="description"
+      content="Классические крестики-нолики для двух игроков на одном экране."
+    />
+    <title>Крестики × Нолики — локальная аркада</title>
+    <link rel="stylesheet" href="style.css" />
+    <script src="app.js" defer></script>
+  </head>
+  <body>
+    <div class="ambient ambient-one" aria-hidden="true"></div>
+    <div class="ambient ambient-two" aria-hidden="true"></div>
+
+    <main class="game-shell">
+      <header class="hero">
+        <div class="eyebrow"><span class="eyebrow-dot"></span> LOCAL ARCADE · 2 PLAYERS</div>
+        <h1>Крестики <span class="title-mark">×</span> нолики</h1>
+        <p class="hero-copy">Два хода. Одно поле. Кто первым соберёт линию?</p>
+      </header>
+
+      <section class="game-card" aria-label="Игра в крестики-нолики">
+        <div class="top-row">
+          <div class="round-info">
+            <span class="round-label">ПАРТИЯ</span>
+            <span class="round-number" id="round-number">01</span>
+          </div>
+
+          <div class="scoreboard" aria-label="Счёт">
+            <div class="score score-x" id="score-card-x">
+              <span class="score-symbol">X</span>
+              <span class="score-name">ИГРОК X</span>
+              <strong id="score-x">0</strong>
+            </div>
+            <div class="score-divider" aria-hidden="true">:</div>
+            <div class="score score-o" id="score-card-o">
+              <span class="score-symbol">O</span>
+              <span class="score-name">ИГРОК O</span>
+              <strong id="score-o">0</strong>
+            </div>
+          </div>
+        </div>
+
+        <div class="status-panel" aria-live="polite">
+          <span class="status-kicker" id="status-kicker">СЕЙЧАС ХОДИТ</span>
+          <strong class="status-message" id="game-status">Игрок X</strong>
+          <span class="status-hint" id="status-hint">Выберите клетку на поле</span>
+        </div>
+
+        <div class="board-wrap">
+          <div class="board" id="board" role="grid" aria-label="Игровое поле 3 на 3">
+            <button class="cell" type="button" role="gridcell" data-cell-index="0" aria-label="Клетка 1"></button>
+            <button class="cell" type="button" role="gridcell" data-cell-index="1" aria-label="Клетка 2"></button>
+            <button class="cell" type="button" role="gridcell" data-cell-index="2" aria-label="Клетка 3"></button>
+            <button class="cell" type="button" role="gridcell" data-cell-index="3" aria-label="Клетка 4"></button>
+            <button class="cell" type="button" role="gridcell" data-cell-index="4" aria-label="Клетка 5"></button>
+            <button class="cell" type="button" role="gridcell" data-cell-index="5" aria-label="Клетка 6"></button>
+            <button class="cell" type="button" role="gridcell" data-cell-index="6" aria-label="Клетка 7"></button>
+            <button class="cell" type="button" role="gridcell" data-cell-index="7" aria-label="Клетка 8"></button>
+            <button class="cell" type="button" role="gridcell" data-cell-index="8" aria-label="Клетка 9"></button>
+          </div>
+        </div>
+
+        <div class="controls">
+          <button class="button button-primary" id="new-round" type="button">
+            <span>Новая партия</span>
+            <span class="button-arrow" aria-hidden="true">↗</span>
+          </button>
+          <button class="button button-quiet" id="reset-score" type="button">Сбросить счёт</button>
+        </div>
+      </section>
+
+      <footer class="page-footer">
+        <span><kbd>R</kbd> новая партия</span>
+        <span class="footer-separator" aria-hidden="true">•</span>
+        <span>Играйте честно</span>
+      </footer>
+    </main>
+  </body>
+</html>
